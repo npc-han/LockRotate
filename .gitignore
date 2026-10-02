@@ -1,0 +1,16 @@
+.oss-refs/
+.build/
+*.xcodeproj/xcuserdata/
+.DS_Store
+DerivedData/
+build/
+assets/raw/
+
+# Notes for AI assistants and editor settings; kept local, not published
+CLAUDE.md
+AGENTS.md
+HANDOFF.md
+PLAN.md
+DESIGN.md
+.claude/
+.vscode/

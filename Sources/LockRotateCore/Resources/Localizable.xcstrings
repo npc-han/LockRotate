@@ -1,0 +1,36 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "import.error.emptyFile" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The file is empty." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "文件是空的。" } }
+      }
+    },
+    "import.error.noValidItems" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No usable entries were found. Each non-empty line that does not start with # counts as one entry." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "没有找到可用的条目。每个非空且不以 # 开头的行算一条。" } }
+      }
+    },
+    "import.error.malformedJSON" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The file is not valid JSON." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "文件不是合法的 JSON。" } }
+      }
+    },
+    "import.error.invalidJSONStructure" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unsupported JSON structure. Use an array of strings, such as [\"a\", \"b\"], or an object like {\"quotes\": [\"a\", \"b\"]}." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "JSON 结构不支持。请使用字符串数组，如 [\"a\", \"b\"]，或形如 {\"quotes\": [\"a\", \"b\"]} 的对象。" } }
+      }
+    },
+    "import.error.notUTF8" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The file is not UTF-8 text. Please save it as UTF-8 and try again." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "文件不是 UTF-8 文本，请另存为 UTF-8 后重试。" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

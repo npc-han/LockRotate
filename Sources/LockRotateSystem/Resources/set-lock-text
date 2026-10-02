@@ -1,0 +1,36 @@
+#!/bin/sh
+# LockRotate helper: sets the macOS lock-screen message. Installed root-owned and
+# reachable only through one exact sudoers rule. Reads the text from stdin so it never
+# touches argv; accepts no arguments. Keep this file short enough to audit by eye.
+set -eu
+PATH=/usr/bin:/bin
+export PATH
+LC_ALL=C
+export LC_ALL
+
+MAX_BYTES=2048
+
+[ "$(id -u)" -eq 0 ] || { echo "set-lock-text: must run as root" >&2; exit 77; }
+[ "$#" -eq 0 ] || { echo "set-lock-text: arguments are not accepted" >&2; exit 64; }
+
+# Read one byte past the limit; the trailing "x" keeps $(...) from eating newlines.
+text=$(head -c $((MAX_BYTES + 1)); printf x)
+text=${text%x}
+
+size=$(printf '%s' "$text" | wc -c | tr -d ' ')
+[ "$size" -le "$MAX_BYTES" ] || { echo "set-lock-text: text too long" >&2; exit 65; }
+
+# Only newline may be a control character (this also rejects ESC, NUL-ish bytes and DEL).
+if printf '%s' "$text" | tr -d '\n' | grep -q '[[:cntrl:]]'; then
+    echo "set-lock-text: control characters are not allowed" >&2
+    exit 65
+fi
+
+# Must be well-formed UTF-8 and not blank.
+printf '%s' "$text" | iconv -f UTF-8 -t UTF-8 >/dev/null 2>&1 \
+    || { echo "set-lock-text: invalid UTF-8" >&2; exit 65; }
+[ -n "$(printf '%s' "$text" | tr -d ' \n')" ] \
+    || { echo "set-lock-text: text is empty" >&2; exit 65; }
+
+/usr/bin/defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText -string "$text"
+/usr/bin/defaults write /Library/Preferences/com.apple.loginwindow DisableLoginwindowText -bool false
